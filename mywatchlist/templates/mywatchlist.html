@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+ {% block content %}
+
+ <style>
+  h1, h5, p {text-align: center;}
+  h1, h5 {color: #506C64}
+  p , th{color: #220C10}
+  th {text-align: center;}
+  tr {background-color: #506C64;}
+  div {text-align: center;}
+  table, th, td {
+    border: 1px solid #ffffff;
+    background-color: #E9ECEC;
+  }
+  body {
+    margin: 10;
+    background-color: #CDD3D5;
+    height:100vh;
+    color:#fff;
+  }
+  </style>
+  
+  <h1> 🕺 Tugas 3 Assignment PBP/PBD 🕺 </h1>
+
+  <h5>Name: </h5>
+  <p>{{nama}}</p>
+
+  <h5>Student ID: </h5>
+  <p>{{studentid}}</p>
+
+  <h3>My Watchlist!</h3>
+
+  <table>
+    <tr>
+      <th>Watched?</th>
+      <th>Title</th>
+      <th>Rating</th>
+      <th>Release Date</th>
+      <th>Review</th>
+    </tr>
+    {% comment %} Add the data below this line {% endcomment %}
+    {% for film in list_film %}
+    <tr>
+        <th>{{film.watched}}</th>
+        <th>{{film.title}}</th>
+        <th>{{film.rating}}</th>
+        <th>{{film.release_date}}</th>
+        <th>{{film.review}}</th>
+    </tr>
+    {% endfor %}
+  </table>
+
+ {% endblock content %}

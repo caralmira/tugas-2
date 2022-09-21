@@ -1,7 +1,8 @@
 from django.shortcuts import render
 from katalog.models import CatalogItem
+from mywatchlist.models import MyWatchlist
 
-# TODO: Create your views here.
+#Create your views here.
 def show_catalog(request):
     data_barang_catalog = CatalogItem.objects.all()
     context = {

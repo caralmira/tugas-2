@@ -1,0 +1,112 @@
+[
+    {
+        "model": "mywatchlist.mywatchlist",
+        "pk": 1,
+        "fields": {
+            "watched": "Sudah",
+            "title": "Brooklyn Nine-Nine",
+            "rating": 8,
+            "release_date": "2013-09-17",
+            "review": "This show is just good fun to watch good by yourself or with someone it's just enjoyable tv great stories and characters please do watch this show it's worth it!"      
+        }
+    },
+    {
+        "model": "mywatchlist.mywatchlist",
+        "pk": 2,
+        "fields": {
+            "watched": "Sudah",
+            "title": "You",
+            "rating": 8,
+            "release_date": "2018-09-09",
+            "review": "I love this! It's dark but yet sexy at the same time. Penn does an amazing job narrating and he makes creepy seem alluring. I can't think of any other actor who'd do a better job."    
+        }
+    },
+    {
+        "model": "mywatchlist.mywatchlist",
+        "pk": 3,
+        "fields": {
+            "watched": "Belum",
+            "title": "Friends",
+            "rating": 9,
+            "release_date": "1994-09-22",
+            "review": "This series will never get old. Those who watch this series will never forget it."  
+        }
+    },
+    {
+        "model": "mywatchlist.mywatchlist",
+        "pk": 4,
+        "fields": {
+            "watched": "Sudah",
+            "title": "The Good Doctor",
+            "rating": 8,
+            "release_date": "2017-09-25",
+            "review": "The first season was really great, the second was enjoyable. Half of the three was okay, but since then just went down and the last two episodes...jokes. So disappointed." 
+        }
+    },
+    {
+        "model": "mywatchlist.mywatchlist",
+        "pk": 5,
+        "fields": {
+            "watched": "Sudah",
+            "title": "Manifest",
+            "rating": 7,
+            "release_date": "2018-09-24",
+            "review": "Now it's basically a soap box opera, overly melodramatic with very little mystery, if any. People constantly arguing is not entertaining to me."
+        }
+    },
+    {
+        "model": "mywatchlist.mywatchlist",
+        "pk": 6,
+        "fields": {
+            "watched": "Sudah",
+            "title": "Squid Game",
+            "rating": 8,
+            "release_date": "2021-09-17",
+            "review": "I found the show to be fantastic, only ruined by the horrible VIP acting."
+        }
+    },
+    {
+        "model": "mywatchlist.mywatchlist",
+        "pk": 7,
+        "fields": {
+            "watched": "Sudah",
+            "title": "Girl from Nowhere",
+            "rating": 8,
+            "release_date": "2021-09-17",
+            "review": "I really recommend this! Nanno is such an amazing character and this show is so addicting."
+        }
+    },
+    {
+        "model": "mywatchlist.mywatchlist",
+        "pk": 8,
+        "fields": {
+            "watched": "Belum",
+            "title": "Next in Fashion",
+            "rating": 7,
+            "release_date": "2020-01-29",
+            "review": "The overall show is good but felt as if the judging was very biased. It felt as if they are not making any attempt to even mask the bias. They could have also added few more elements when they educate the layman about fashion."
+        }
+    },
+    {
+        "model": "mywatchlist.mywatchlist",
+        "pk": 9,
+        "fields": {
+            "watched": "Sudah",
+            "title": "Mencuri Raden Saleh",
+            "rating": 8,
+            "release_date": "2022-08-25",
+            "review": "The story telling (which I consider usually lacking in most Indonesian films) is very good even with the twists and turns. Very good pacing that makes 2,5 hours gone in a flash."
+        }
+    },
+    {
+        "model": "mywatchlist.mywatchlist",
+        "pk": 10,
+        "fields": {
+            "watched": "Sudah",
+            "title": "My Name",
+            "rating": 8,
+            "release_date": "2021-10-15",
+            "review": "The leads are all terrific and if ever a female action heroine deserves accolades for both her acting and action, it's, So-hee Han She was amazing."
+        }
+    }
+]
