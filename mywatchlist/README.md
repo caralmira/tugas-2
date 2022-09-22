@@ -21,10 +21,10 @@
 When significant amounts of data are involved, a database is required to store the data. Then, when you wish to display these data, writing them one by one in HTML is inefficient. Therefore, data delivery is required to move the data from one stack to another in order to connect HTML and the database. Additionally, HTML and data can be separated to create a more organized document.
 
 ###  🧐 (3) Implementation 🧐
-1. Menyalakan virtual environment
-2. Membuat `django-app` bernama `mywatchlist` dengan perintah
-3. Menambahkan aplikasi `mywatchlist` ke dalam variabel `INSTALLED_APPS` untuk mendaftarkan aplikasi
-4. Membuat models di `models.py`
+1. First, I activate the virtual environment
+2. Used the command to create a `django-app` named `mywatchlist`
+3. Registered the `mywatchlist` by adding it to the `INSTALLED_APPS` variable
+4. Creating models in `models.py`
    ```python
    class MyWatchlist(models.Model):
     watched = models.TextField()
@@ -33,8 +33,8 @@ When significant amounts of data are involved, a database is required to store t
     release_date = models.DateField()
     review = models.TextField()
    ```
-5. Melakukan migrasi skema model ke dalam database Django lokal
-6. Membuat berkas berisi data film di file `initial_watchlist_data.json`:
+5. Migrate the model schema into a local Django database
+6. Create a file contains movies information named `initial_watchlist_data.json`:
    ```python
    [
     {
@@ -50,6 +50,10 @@ When significant amounts of data are involved, a database is required to store t
     },
     .....]
     ```
-7. Memasukkan data tersebut ke dalam database Django lokal
-8. Membuat 3 fungsi yang menerima parameter `request` masing-masing untuk HTML, JSON, dan XML di file `views.py`
+7. Inputting the movies data into the local Django database
+8. Create three functions in the `views.py` file that accept `request` parameters for HTML, JSON, and XML features.
+9. Create routing in the `urls.py` file and include XML, HTML, and JSON paths.
+10. Deploy to Heroku followd by `add`,`commit`, dan `push` to Github
+
+
 ###  📱(4) Screenshot Postman 📱
