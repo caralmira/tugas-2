@@ -1,11 +1,55 @@
-# Tugas 3 - Carissa Almira Yudiva (2106751676)
+# 🕺💥 Tugas 3 - Carissa Almira Yudiva (2106751676) 💥🕺
 
-[Heroku App](https://tugas-carissa.herokuapp.com/mywatchlist/)
+★	[Heroku App: HTML](https://tugas-carissa.herokuapp.com/mywatchlist/)
 
-### (1) Perbedaan Antara JSON, HTML, & XML
+★	[Heroku App: XML](https://tugas-carissa.herokuapp.com/mywatchlist/xml)
 
-### (2) Pentingnya *Data Delivery* dalam Pengimplementasian Sebuah Platform
+★	[Heroku App: JSON](https://tugas-carissa.herokuapp.com/mywatchlist/json)
 
-### (3) Implementasi
+###  🖥 (1) Difference Between JSON, HTML, & XML 🖥
+| | **JSON**  | **XML** | **HTML** |
+| ------------ | ------------- | ------------- | ------------ 
+| Purpose | Data Delivery  | Data Delivery  | Display Data |
+| Save Elements | `Key:Value` (Map)  | `<variable>...</variable>` (Tree Structure) | `<title>..</title>` |
+| Security | The majority of the time, JSON processing is secure, unless JSONP is employed, which can result in Cross-Site Request Forgery (CSRF) attacks. | External entity expansion and DTD validation are enabled by default, which makes XML structures vulnerable to many attacks. |  |
+| Language | Javascript  | Markup Language  | Markup Language |
+| Speed | Fast  | Slow  | Fast |
+| Processing | No Process | Can do processing/calculation | The HTML parsing process accepts as input a stream of code points, which are then sent via a tokenization step and a tree construction stage to produce a Document object. |
+| File | `.json` | `.xml` | `.html` |
 
-### (4) Screenshot Postman
+###  🪄 (2) The Importance of *Data Delivery* in Implementing a Platform  🪄
+When significant amounts of data are involved, a database is required to store the data. Then, when you wish to display these data, writing them one by one in HTML is inefficient. Therefore, data delivery is required to move the data from one stack to another in order to connect HTML and the database. Additionally, HTML and data can be separated to create a more organized document.
+
+###  🧐 (3) Implementation 🧐
+1. Menyalakan virtual environment
+2. Membuat `django-app` bernama `mywatchlist` dengan perintah
+3. Menambahkan aplikasi `mywatchlist` ke dalam variabel `INSTALLED_APPS` untuk mendaftarkan aplikasi
+4. Membuat models di `models.py`
+   ```python
+   class MyWatchlist(models.Model):
+    watched = models.TextField()
+    title = models.TextField()
+    rating = models.IntegerField()
+    release_date = models.DateField()
+    review = models.TextField()
+   ```
+5. Melakukan migrasi skema model ke dalam database Django lokal
+6. Membuat berkas berisi data film di file `initial_watchlist_data.json`:
+   ```python
+   [
+    {
+        "model": "mywatchlist.mywatchlist",
+        "pk": 1,
+        "fields": {
+            "watched": "Sudah",
+            "title": "Brooklyn Nine-Nine",
+            "rating": 8,
+            "release_date": "2013-09-17",
+            "review": "This show is just good fun to watch good by yourself or with someone it's just enjoyable tv great stories and characters please do watch this show it's worth it!"      
+        }
+    },
+    .....]
+    ```
+7. Memasukkan data tersebut ke dalam database Django lokal
+8. Membuat 3 fungsi yang menerima parameter `request` masing-masing untuk HTML, JSON, dan XML di file `views.py`
+###  📱(4) Screenshot Postman 📱
