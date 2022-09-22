@@ -57,3 +57,12 @@ When significant amounts of data are involved, a database is required to store t
 
 
 ###  📱(4) Screenshot Postman 📱
+#### Postman JSON
+<img width="856" alt="Screen Shot 2022-09-22 at 10 37 01" src="https://user-images.githubusercontent.com/112609904/191652908-869fc704-6135-4b39-866a-16d220aefd48.png">
+
+#### Postman XML
+<img width="856" alt="Screen Shot 2022-09-22 at 10 37 38" src="https://user-images.githubusercontent.com/112609904/191652975-6ded0a2c-8a47-4d8d-b9af-4b37819cc67e.png">
+
+#### Postman HTML
+<img width="851" alt="Screen Shot 2022-09-22 at 10 38 31" src="https://user-images.githubusercontent.com/112609904/191653062-71d469ff-00b3-4a6a-9360-c8f22ecdf153.png">
+
