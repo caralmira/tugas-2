@@ -1,0 +1,126 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
+<style>
+    body {
+        background-image: url('images/pic-1.gif');
+    }
+    .header {
+        padding: 20px;
+        text-align: center;
+    }
+    .primary-heading {
+        font-family: 'Poppins';
+        font-size: xx-large;
+        color: #4F4789;
+        margin-bottom: 8px;
+        margin-top: 8px;
+    }
+    .body {
+        padding-top: 16px;
+        padding: 16px;
+    }
+    .footer {
+        margin-top: 32px;
+    }
+    .button {
+        border-radius: 5px;
+        background-color: #FFB17A;
+        border: #201335;
+        padding: 10px 16px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-family: 'Poppins';
+        font-size: small;
+    }
+    a {
+    color: #FFB17A;
+    font-size: small;
+    text-decoration-line: none;
+    font-family: 'Poppins';
+    }
+
+    #tasks {
+        margin-left: auto;
+        margin-right: auto;
+        align-content: center;
+        font-family: 'Poppins';
+        border-collapse: collapse;
+        width:100%;
+        outline-color: #201335;
+    }
+
+    #tasks tr:nth-child(even){background-color: #FFFDED;}
+
+    #tasks tr:hover {background-color: #FFF185;}
+
+    #tasks td, #tasks th {
+        border: none;
+        padding: 8px;
+    }
+
+    #tasks th {
+        padding-top: 12px;
+        padding-bottom: 12px;
+        text-align: center;
+        background-color: #4F4789;
+        color: #FFFDED;
+    }
+
+    b { 
+    margin-top: 10px;
+    font-size: large;
+    color: #201335;
+    margin-bottom: 10px;
+    font-family: 'Poppins';
+
+}
+</style>
+
+<body>
+    <div style="align-items: center;"class="wrapper">
+
+        <div class = "header">
+            <h1 class = "primary-heading">☆ To Do List! ☆ </h1>
+            <b> -- Current User: {{ username_login }} -- </b>
+        </div>
+        <div class="separator" style="color:#201335; margin:10x"></div>
+        <div class = "body">
+        <button style="margin-top: 16px; text-align: center;"><a href="{% url 'todolist:create_task' %}"> ✷ Create Task</a></button>
+        <div class="separator" style="color:#201335; margin:10x"></div>
+        <table class="table" style="padding: 10px;" id="tasks">
+            <thead>
+                <tr>
+                    <th>Date Created</th>
+                    <th>Task</th>
+                    <th>Description</th>
+                    <th>Status</th>
+                    <th>Delete Task</th>
+                    <th colspan="2">Actions</th>
+                </tr>
+            </thead>
+        
+            <tbody>
+                {% for task in tasks%}
+                <tr>
+                    <td>{{task.date}}</td>
+                    <td>{{task.title}}</td>
+                    <td>{{task.description}}</td>
+                    <td>{% if task.is_finished %} Selesai {% else %} Belum Selesai {% endif %}</td>
+
+                    <td style="text-align:center;"><button><a href="/todolist/delete/{{task.id}}"> ✷ Delete</a></button></td>
+                    <td style="text-align:center;"><button><a href="/todolist/update/{{task.id}}"> ✷ Update</a></button></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <hr>
+        <div class = "footer">
+            <p style="font-size: medium;">last accessed on {{ last_login }}</p>
+        </div>
+        <button><a href="{% url 'todolist:logout' %}"> ✷ Logout</a></button>
+    </div>     
+</body>
+{% endblock content %}

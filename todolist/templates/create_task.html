@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+
+{% block meta %}
+<title>Login</title>
+{% endblock meta %}
+
+{% block content %}
+
+<link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
+<style>
+    body {
+        background-image: url('images/pic-1.gif');
+    }
+    input, textarea, select, button {
+        font-family: 'Poppins';
+        color: #4F4789;
+        font-size: 13px;}
+    .header {
+        padding: 20px;
+        text-align: center;
+    }
+    .primary-heading {
+        font-family: 'Poppins';
+        font-size: xx-large;
+        color: #4F4789;
+        margin-bottom: 8px;
+        margin-top: 8px;
+    }
+    .wrapper {
+        min-height: 100vh;
+        background-size:cover;
+        display: flex;
+        align-items: center;
+    }
+    .inner {
+        padding: 20px;
+        background: #FFFDED;
+        max-width: 850px;
+        margin: auto;
+        display: flex;
+    }
+    h1 {
+        font-size: 25 px;
+        font-family: 'Poppins';
+        text-align: center;
+        margin-bottom: 28px;
+        }
+    .body {
+        padding-top: 16px;
+        padding: 16px; }
+    .footer {
+        margin-top: 32px;}
+    .button {
+        border-radius: 5px;
+        background-color: #FFB17A;
+        border: #201335;
+        padding: 10px 16px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-family: 'Poppins';
+        font-size: small; }
+    a {
+    color: #FFB17A;
+    font-size: small;
+    text-decoration-line: none;
+    font-family: 'Poppins';
+    }
+    b { 
+        margin-top: 10px;
+        font-size: large;
+        color: #201335;
+        margin-bottom: 10px;
+        font-family: 'Poppins';}
+</style>
+
+<div class = "container">
+
+    <h1>Create a New Task</h1>
+
+    <form method="POST" action="">
+        {% csrf_token %}
+        
+        {{ form.as_p }}
+
+        <input type="submit", value="Create">
+    </form>
+    <button><a href="{% url 'todolist:show_todolist' %}">Cancel</a></button>
+</div>
+
+{% endblock content %}
