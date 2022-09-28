@@ -1,10 +1,10 @@
 {% extends 'base.html' %}
 
 {% block meta %}
-<title>Login</title>
+<title>Registrasi Akun</title>
 {% endblock meta %}
 
-{% block content %}
+{% block content %}  
 
 <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
 <link href='https://fonts.googleapis.com/css?family=Pinyon Script' rel='stylesheet'>
@@ -15,56 +15,33 @@
         font-size: 13px;
         margin: 0;
         background-image: url('images/pic-1.gif');
+        align-items: center;
+        text-align: center;
     }
     input, textarea, select, button {
         font-family: 'Poppins';
         color: #4F4789;
         font-size: 13px;
+        align-items: center;
+        text-align: center;
     }
     img { max-width: 100%; }
-    ul {
-        padding-left: 0;
-        margin-bottom: 0;
-    }
     a {
-    color: #FFB17A;
-    font-size: small;
-    text-decoration-line: none;
-    font-family: 'Poppins';
-    }
-    .wrapper {
-        min-height: 100vh;
-        background-size:cover;
-        display: flex;
+        color: #FFB17A;
+        font-size: small;
+        text-decoration-line: none;
+        font-family: 'Poppins';
         align-items: center;
+        text-align: center;
     }
-    .inner {
-        padding: 20px;
-        max-width: 850px;
-        margin: auto;
-        display: flex;
-    }
-        .inner .image-holder { width: 50%; }
-        .inner form {
-        width: 50%;
-        padding-top: 36px;
-        padding-left: 45px;
-        padding-right: 45px;
-        }
-        .inner h1 {
+    h1 {
         font-size: 60px;
         font-family: 'Pinyon Script';
-        text-align: left;
+        text-align: center;
         margin-bottom: 28px;
         color: #0eb632;
-        }
-    select {
-        -moz-appearance: none;
-        -webkit-appearance: none;
-        cursor: pointer;
-        padding-left: 20px; 
-    } select option[value=""][disabled] { display: none; }
-
+    }
+    
     button {
         border-radius: 5px;
         border: #201335;
@@ -86,55 +63,40 @@
         color: #201335;
         margin-bottom: 10px;
         font-family: 'Poppins';}
-        @media (max-width: 1199px) {
-    .wrapper {
-        background-position: right center; } }
-    @media (max-width: 991px) {
-    .inner form {
-        padding-top: 10px;
-        padding-left: 30px;
-        padding-right: 30px; } }
-    @media (max-width: 767px) {
-    .inner {
-        display: block; }
-        .inner .image-holder {
-        width: 100%; }
-        .inner form {
-        width: 100%;
-        padding: 40px 0 30px; }
-    button {
-        margin-top: 60px; } }
- 
+
+    .bg {
+        background-image: url("images/pic-1.gif");
+        background-repeat: repeat;
+        background-size: cover;
+    }
+
 </style>
 
-<div class = "login">
-    <div class="wrapper" style="background-image: url('images/pic1-gif');">
-        <div class="inner">
-            <div class="image-holder">
-                <img src="images/registration-form-1.jpg" alt="">
-            </div>
-            <form action="">
-                <h1>Registration</h1>  
-
+<div ALIGN = 'center'>
+    <div class = "login">
+    
+        <h1> 𓆇 Registration Form 𓆇</h1>  
+    
             <form method="POST" >  
                 {% csrf_token %}  
                 <table>  
                     {{ form.as_table }}  
                     <tr>  
                         <td></td>
-                        <td><input type="submit" name="submit" value="✷ Daftar"/></td>  
+                        <td><input type="submit" name="submit" value="Registrasi"/></td>  
                     </tr>  
                 </table>  
             </form>
-
-    {% if messages %}  
-        <ul>   
-            {% for message in messages %}  
-                <li>{{ message }}</li>  
-                {% endfor %}  
-        </ul>   
-    {% endif %}
-
-</div>  
+    
+        {% if messages %}  
+            <ul>   
+                {% for message in messages %}  
+                    <li>{{ message }}</li>  
+                    {% endfor %}  
+            </ul>   
+        {% endif %}
+    
+    </div>  
+</div> 
 
 {% endblock content %}

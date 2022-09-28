@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
 
+<link href='https://fonts.googleapis.com/css?family=Pinyon Script' rel='stylesheet'>
 <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
 <style>
     body {
@@ -11,9 +12,11 @@
         text-align: center;
     }
     .primary-heading {
-        font-family: 'Poppins';
-        font-size: xx-large;
-        color: #4F4789;
+        font-size: 60px;
+        font-family: 'Pinyon Script';
+        text-align: center;
+        margin-bottom: 28px;
+        color: #0eb632;
         margin-bottom: 8px;
         margin-top: 8px;
     }
@@ -79,48 +82,51 @@
 }
 </style>
 
-<body>
-    <div style="align-items: center;"class="wrapper">
+<div ALIGN = 'center'>
+    <body>
+        <div style= "background-image: url('images/pic-1.gif');" class="wrapper">
+    
+            <div class = "header">
+                <h1 class = "primary-heading">✷ Kemi's Task Manager ✷ </h1>
+                <b> Current User: {{ username_login }} </b>
+            </div>
+            <div class="separator" style="color:#201335; margin:10x"></div>
+            <div class = "body">
+            <button style="margin-top: 16px; text-align: center; margin-bottom: 10px"><a href="{% url 'todolist:create_task' %}"> ✷ Create Task</a></button>
+            <div class="separator" style="color:#201335; margin:10x"></div>
+            <table class="table" style="padding: 10px;" id="tasks">
+                <thead>
+                    <tr>
+                        <th>Date Created</th>
+                        <th>Task</th>
+                        <th>Description</th>
+                        <th>Status</th>
+                        <th>Delete Task</th>
+                        <th colspan="2">Actions</th>
+                    </tr>
+                </thead>
+            
+                <tbody>
+                    {% for task in tasks%}
+                    <tr>
+                        <td>{{task.date}}</td>
+                        <td>{{task.title}}</td>
+                        <td>{{task.description}}</td>
+                        <td>{% if task.is_finished %} Selesai {% else %} Belum Selesai {% endif %}</td>
+    
+                        <td style="text-align:center;"><button><a href="/todolist/delete/{{task.id}}"> ✷ Delete</a></button></td>
+                        <td style="text-align:center;"><button><a href="/todolist/update/{{task.id}}"> ✷ Update</a></button></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <hr>
+            <div class = "footer">
+                <p style="font-size: medium;">last accessed on {{ last_login }}</p>
+            </div>
+            <button><a href="{% url 'todolist:logout' %}"> ✷ Logout</a></button>
+        </div>     
+    </body>
+</div>
 
-        <div class = "header">
-            <h1 class = "primary-heading">☆ To Do List! ☆ </h1>
-            <b> -- Current User: {{ username_login }} -- </b>
-        </div>
-        <div class="separator" style="color:#201335; margin:10x"></div>
-        <div class = "body">
-        <button style="margin-top: 16px; text-align: center;"><a href="{% url 'todolist:create_task' %}"> ✷ Create Task</a></button>
-        <div class="separator" style="color:#201335; margin:10x"></div>
-        <table class="table" style="padding: 10px;" id="tasks">
-            <thead>
-                <tr>
-                    <th>Date Created</th>
-                    <th>Task</th>
-                    <th>Description</th>
-                    <th>Status</th>
-                    <th>Delete Task</th>
-                    <th colspan="2">Actions</th>
-                </tr>
-            </thead>
-        
-            <tbody>
-                {% for task in tasks%}
-                <tr>
-                    <td>{{task.date}}</td>
-                    <td>{{task.title}}</td>
-                    <td>{{task.description}}</td>
-                    <td>{% if task.is_finished %} Selesai {% else %} Belum Selesai {% endif %}</td>
-
-                    <td style="text-align:center;"><button><a href="/todolist/delete/{{task.id}}"> ✷ Delete</a></button></td>
-                    <td style="text-align:center;"><button><a href="/todolist/update/{{task.id}}"> ✷ Update</a></button></td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-        <hr>
-        <div class = "footer">
-            <p style="font-size: medium;">last accessed on {{ last_login }}</p>
-        </div>
-        <button><a href="{% url 'todolist:logout' %}"> ✷ Logout</a></button>
-    </div>     
-</body>
 {% endblock content %}

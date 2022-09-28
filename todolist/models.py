@@ -9,7 +9,3 @@ class Task(models.Model):
     title = models.CharField(max_length = 255)
     description = models.TextField()
     is_finished = models.BooleanField(default = False)
-
-# source:
-# https://docs.djangoproject.com/en/4.1/ref/models/fields/#foreignkey
-# https://nsikakimoh.com/blog/auto_now-vs-auto_now_add-in-django
