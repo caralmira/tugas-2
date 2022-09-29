@@ -5,7 +5,6 @@ from django.shortcuts import render
 from django.shortcuts import redirect
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
-from todolist.apps import TodolistConfig
 from urllib.parse import parse_qs
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
