@@ -1,11 +1,22 @@
 {% extends 'base.html' %}
 {% block content %}
 
+<head>
+    <title>TODO LIST</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+
 <link href='https://fonts.googleapis.com/css?family=Pinyon Script' rel='stylesheet'>
 <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
 <style>
     body {
-        background: url(https://cdn.discordapp.com/attachments/1024881450786492487/1024881554452926504/pic-1.gif) repeat;
+        background-image: url(https://cdn.discordapp.com/attachments/1002595520281325578/1027272338779144312/BG_2.gif);
+        background-repeat: repeat;
         min-height: 100%;
     }
     .header {
@@ -13,36 +24,51 @@
         text-align: center;
     }
     .primary-heading {
-        font-size: 60px;
-        font-family: 'Pinyon Script';
+        font-size: 45px;
+        font-family: 'Poppins';
         text-align: center;
         margin-bottom: 28px;
-        color: #0eb632;
+        color: #eaeaea;
         margin-bottom: 8px;
-        margin-top: 8px;
+        margin-top: 50px;
     }
     .body {
         padding-top: 16px;
         padding: 16px;
     }
-    .footer {
-        margin-top: 32px;
-    }
     .button {
         border-radius: 5px;
-        background-color: #FFB17A;
-        border: #201335;
+        border: #ffffff;
         padding: 10px 16px;
         text-align: center;
-        text-decoration: none;
         display: inline-block;
         font-family: 'Poppins';
         font-size: small;
     }
     a {
-    color: #FFB17A;
+    color: #4c4c4c;
     font-size: small;
-    text-decoration-line: none;
+    font-family: 'Poppins';
+    }
+
+    h1, h3, h4 {
+    font-size: xx-large;
+    color: #d5d5d5;
+    margin-bottom: 8px;
+    margin-top: 8px;
+    font-family: 'Poppins';
+    }
+
+    h3 {
+    font-size: large;
+    font-weight: normal;
+    font-family: 'Poppins';
+    }
+
+    h4 {
+    font-size: small;
+    text-align: right;
+    font-weight: normal;
     font-family: 'Poppins';
     }
 
@@ -53,34 +79,66 @@
         font-family: 'Poppins';
         border-collapse: collapse;
         width:100%;
-        outline-color: #201335;
-    }
-
-    #tasks tr:nth-child(even)
-
-    #tasks tr:hover {background-color: #FFF185;}
-
-    #tasks td, #tasks th {
-        border: none;
-        padding: 8px;
-    }
-
-    #tasks th {
-        padding-top: 12px;
-        padding-bottom: 12px;
-        text-align: center;
-        background-color: #4F4789;
-        color: #FFFDED;
+        outline-color: #4c4c4c;
     }
 
     b { 
-    margin-top: 10px;
+    margin-top: 50px;
     font-size: large;
-    color: #201335;
+    color: #FFFDED;
     margin-bottom: 10px;
     font-family: 'Poppins';
+    }
 
-}
+    .card {
+    margin-right: auto;
+    margin-left: auto;
+    width: 250px;
+    box-shadow: 0 15px 25px rgba(129, 124, 124, 0.2);
+    height: 300px;
+    border-radius: 5px;
+    backdrop-filter: blur(14px);
+    background-color: rgba(255, 255, 255, 0.2);
+    padding: 10px;
+    text-align: center;
+    }
+    .card:hover {
+        transform: scale(1.01);
+        box-shadow: 0 10px 20px rgba(0,0,0,.12), 0 4px 8px rgba(0,0,0,.06);
+    }
+
+    p {
+    margin-top: 10px;
+    font-size: large;
+    color: #202121;
+    margin-bottom: 10px;
+    font-weight: bold;
+    }
+
+    #description {
+        position: relative;
+    }
+    #Finished {
+        font-size: small;
+        font-weight:bold;
+        color: #ffffff;
+    }
+
+    .badge-success {
+    background-color: #2e2e2e ;
+    }
+
+    #Ongoing {
+    font-size: small;
+    font-weight: bold;
+    color: #ffffff;
+    
+    }
+
+    .badge-warning {
+    background-color: #2e2e2e ;
+    }
+
 </style>
 
 
@@ -88,43 +146,32 @@
     <div ALIGN = 'center'>
             <div class="wrapper">
                 <div class = "header">
-                    <h1 class = "primary-heading">✷ Kemi's Task Manager ✷ </h1>
+                    <h1 class = "primary-heading">𓆇 {{ username_login }}'s Task Manager 𓆇 </h1>
                     <b> Current User: {{ username_login }} </b>
                 </div>
                 <div class="separator" style="color:#201335; margin:10x"></div>
                 <div class = "body">
                 <button style="margin-top: 16px; text-align: center; margin-bottom: 10px"><a href="{% url 'todolist:create_task' %}"> ✷ Create Task</a></button>
                 <div class="separator" style="color:#201335; margin:10x"></div>
-                <table class="table" style="padding: 10px;" id="tasks">
-                    <thead>
-                        <tr>
-                            <th>Date Created</th>
-                            <th>Task</th>
-                            <th>Description</th>
-                            <th>Status</th>
-                            <th>Delete Task</th>
-                            <th colspan="2">Actions</th>
-                        </tr>
-                    </thead>
-                
-                    <tbody>
+                    <div class="body">
                         {% for task in tasks%}
-                        <tr>
-                            <td>{{task.date}}</td>
-                            <td>{{task.title}}</td>
-                            <td>{{task.description}}</td>
-                            <td>{% if task.is_finished %} Selesai {% else %} Belum Selesai {% endif %}</td>
-        
-                            <td style="text-align:center;"><button><a href="/todolist/delete/{{task.id}}"> ✷ Delete</a></button></td>
-                            <td style="text-align:center;"><button><a href="/todolist/update/{{task.id}}"> ✷ Update</a></button></td>
-                        </tr>
+                        <div class="card" style="margin-bottom: 20px;" >
+                            {% if task.is_finished %}
+                                    <div><span class="badge badge-pill badge-success" id="Finished">Finished!</span></div>
+                                        <h4 style = "text-align: center;"> Created On: {{task.date}} </h4>
+                            {% else %}
+                                    <div><span class="badge badge-pill badge-success" id="Ongoing">Ongoing</span></div>
+                                        <h4 style = "text-align: center;"> Created On: {{task.date}} </h4>
+                            {% endif %}
+                            <div style = "text-align: center;" id="description">
+                                <h1 style = "text-align: center;" >{{ task.title }}</h1> <h4 style = text-align:center;>{{ task.description }}</h4>
+                            </div>
+                            <div class="mt-auto align-items-end">
+                                <button><a href="/todolist/update/{{task.id}}", class="custom-update-button"> ✷ Update</a></button>
+                                <button><a href="/todolist/delete/{{task.id}}", class="custom-delete-button"> ✷ Delete</a></button>
+                            </div>
+                        </div>
                         {% endfor %}
-                    </tbody>
-                </table>
-                <hr>
-                <div class = "footer">
-                    <p style="font-size: medium;">last accessed on {{ last_login }}</p>
-                </div>
                 <button><a href="{% url 'todolist:logout' %}"> ✷ Logout</a></button>
             </div>     
     </div>

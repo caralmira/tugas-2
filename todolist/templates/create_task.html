@@ -9,11 +9,12 @@
 <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
 <style>
     body {
-        background-image: url(https://cdn.discordapp.com/attachments/1024881450786492487/1024881554452926504/pic-1.gif);
+        background-image: url(https://cdn.discordapp.com/attachments/1002595520281325578/1027272338779144312/BG_2.gif);
+        background-repeat: repeat;
     }
     input, textarea, select, button {
         font-family: 'Poppins';
-        color: #4F4789;
+        color: #343434;
         font-size: 13px;}
     .header {
         padding: 20px;
@@ -22,7 +23,7 @@
     .primary-heading {
         font-family: 'Poppins';
         font-size: xx-large;
-        color: #4F4789;
+        color: #30663c;
         margin-bottom: 8px;
         margin-top: 8px;
     }
@@ -44,6 +45,7 @@
         font-family: 'Poppins';
         text-align: center;
         margin-bottom: 28px;
+        color: #f9f9f9;
         }
     .body {
         padding-top: 16px;
@@ -52,7 +54,7 @@
         margin-top: 32px;}
     .button {
         border-radius: 5px;
-        background-color: #FFB17A;
+        background-color: #30663c;
         border: #201335;
         padding: 10px 16px;
         text-align: center;
@@ -61,7 +63,7 @@
         font-family: 'Poppins';
         font-size: small; }
     a {
-    color: #FFB17A;
+    color: #333333;
     font-size: small;
     text-decoration-line: none;
     font-family: 'Poppins';
@@ -69,23 +71,43 @@
     b { 
         margin-top: 10px;
         font-size: large;
-        color: #201335;
+        color: #f6f6f6;
         margin-bottom: 10px;
         font-family: 'Poppins';}
+
+    .card {
+    margin-right: auto;
+    margin-left: auto;
+    width: 250px;
+    box-shadow: 0 15px 25px rgba(129, 124, 124, 0.2);
+    height: 300px;
+    border-radius: 5px;
+    backdrop-filter: blur(14px);
+    background-color: rgba(255, 255, 255, 0.2);
+    padding: 10px;
+    text-align: center;
+    }
+
+    .card:hover {
+        transform: scale(1.01);
+        box-shadow: 0 10px 20px rgba(0,0,0,.12), 0 4px 8px rgba(0,0,0,.06);
+    }
 </style>
 
-<div class = "container">
-
-    <h1>Create a New Task</h1>
-
-    <form method="POST" action="">
-        {% csrf_token %}
-        
-        {{ form.as_p }}
-
-        <input type="submit", value="Create">
-    </form>
-    <button><a href="{% url 'todolist:show_todolist' %}">Cancel</a></button>
-</div>
+<body>
+    <div ALIGN = 'center'>
+        <div class = "container">
+                <h1>𓆇 Create a New Task 𓆇</h1>
+                <form method="POST" action="">
+                    {% csrf_token %}
+                    
+                    <b>{{ form.as_p }}</b>
+            
+                    <input type="submit", value="Create">
+                </form>
+                <button><a href="{% url 'todolist:show_todolist' %}">Cancel</a></button>
+        </div>
+    </div>
+</body>
 
 {% endblock content %}
