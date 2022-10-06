@@ -53,3 +53,83 @@ The information for each property will be saved and provided to the function in 
 10. Create two user accounts and three dummy datas using the Task model for each account on the Heroku website.
 
 ## Thank You!
+
+# 🕺 Tugas 5 - Carissa Almira Yudiva (2106751676) 🕺
+
+★	[Heroku App](https://tugas-carissa.herokuapp.com/todolist/)
+
+###  (1) Inline, Internal, External [CSS]
+| Inline CSS  | Internal CSS | External CSS
+| ------------- | ------------- | ------------- |
+| Menggunakan atribut `style` dari tag HTML.  | Menggunakan tag `<style>` dan segala penghiasan ditulis dalam tag tersebut. | Menggunakan file dengan ekstensi `.css` untuk melakukan penghiasan
+| Efektif digunakan jika hanya menambahkan styling pada 1 selector. | Untuk setiap instance dari selector yang dibuat, stylingnya akan selalu berlaku. | Dapat dihunakan di berbagai file dan berbagai template.
+| Kurang cocok jika ingin membuat style yang ingin digunakan kembali. | Jika style yang ingin dibuat banyak akan memenuhi file template. | Mempengaruhi waktu render halaman website. 
+
+###  (2) HTML5 Tags
+1. `<table>` - membuat tabel dengan baris `<tr>` dan kolom/data `<td>`
+2. `<hr>` - garis pemisah
+3. `<br>` - baris baru
+4. `<p>` - teks ukuran normal
+5. `<h1>...<h6>` - heading/subheading
+6. `<button>` - membuat tombol
+7. `<a>` - teks tampil sebagai link menggunakan `href`
+8. `<div>` - membungkus elemen
+
+###  (3) CSS Selectors
+*Element Selector* 
+Menggunakan tag HTML sebagai selector.
+```python
+   body {
+        background-image: url(https://cdn.discordapp.com/attachments/1002595520281325578/1027272338779144312/BG_2.gif);
+        background-repeat: repeat;
+    }
+```
+
+*ID Selector*
+Menggunakan ID
+```python
+   #Finished {
+        font-size: small;
+        font-weight:bold;
+        color: #ffffff;
+    }
+```
+
+*Class Selector*
+Menggunakan class yang ditambahkan pada tag sebagai selector-nya.
+```python
+   button {
+           border-radius: 5px;
+           border: #ffffff;
+           padding: 10px 16px;
+           text-align: center;
+           display: inline-block;
+           font-family: 'Poppins';
+           font-size: small;
+       }
+```
+
+### (4) Implementation
+1. Meng-kostumisasi template HTML Tugas 4 menggunakan CSS Bootstrap dan saya menggunakan cara Internal CSS.
+2. Meng-kostumisasi halaman todolist menggunakan cards, saya menambahkan tag `<style>` dengan kode ini lalu saya mengimplementasikan di selector-selector.
+```python
+   .card {
+       margin-right: auto;
+       margin-left: auto;
+       width: 250px;
+       box-shadow: 0 15px 25px rgba(129, 124, 124, 0.2);
+       height: 300px;
+       border-radius: 5px;
+       backdrop-filter: blur(14px);
+       background-color: rgba(255, 255, 255, 0.2);
+       padding: 10px;
+       text-align: center;
+    }
+    .card:hover {
+        transform: scale(1.01);
+        box-shadow: 0 10px 20px rgba(0,0,0,.12), 0 4px 8px rgba(0,0,0,.06);
+    }
+```
+3. Membuat menjadi responsive.
+
+## Thank You!
