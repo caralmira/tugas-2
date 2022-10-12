@@ -9,11 +9,12 @@ from urllib.parse import parse_qs
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 import datetime
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, JsonResponse, HttpResponse
 from django.urls import reverse
 from todolist.models import Task
 from todolist.forms import TaskForm
 from django.urls import reverse
+from django.core import serializers
 
 # Create your views here.
 
@@ -35,7 +36,7 @@ def register(request):
         form = UserCreationForm(request.POST)
         if form.is_valid():
             form.save()
-            messages.success(request, 'Akun telah berhasil dibuat!')
+            messages.success(request,'Account has been created successfully!')
             return redirect('todolist:login')
     
     context = {'form':form}
@@ -87,4 +88,18 @@ def update_task(request, id):
     task = Task.objects.get(id = id)
     task.is_finished = not task.is_finished
     task.save()
+    return redirect('todolist:show_todolist')
+
+@login_required(login_url='/todolist/login')
+def show_json(request):
+    tasks = Task.objects.filter(user=request.user)
+    return HttpResponse(serializers.serialize("json", tasks), content_type="application/json")
+
+@login_required(login_url='/todolist/login')
+def add_task_ajax(request):
+    if request.method == 'POST':
+        title = request.POST['title']
+        description = request.POST['description']
+        Task.objects.create(user=request.user, title=title, description=description)
+        return JsonResponse({'error': False, 'msg': 'Successful'})
     return redirect('todolist:show_todolist')
