@@ -87,6 +87,16 @@
         outline-color: #4c4c4c;
     }
 
+    tr, td {
+        border: none;
+        padding: 8px;
+        margin-top: 10px;
+        font-size: large;
+        color: #4c4c4c;
+        margin-bottom: 10px;
+        font-family: 'Poppins';
+    }
+
     b { 
     margin-top: 50px;
     font-size: large;
@@ -153,11 +163,12 @@
         width: 100%;
         height: 100%;
         padding-top: 100px;
-        background-color: #4c4c4c;
         -webkit-trasition: 0.5s;
         overflow: auto;
         transition: all 0.3s linear;
         font-family: 'Poppins';
+        backdrop-filter: blur(14px);
+        background-color: rgba(255, 255, 255, 0.2);
     }
     .modal-content {
         background-color: #d5d5d5;
@@ -168,8 +179,6 @@
         height: 450px;
     }
     .modalopen { overflow: hidden;}
-    .is-hidden { display: none; }
-    .is-visuallyHidden { opacity: 0;}
     .close {
         color: #aaaaaa;
         float: right;
@@ -180,218 +189,127 @@
         color: #000;
         cursor: pointer;
     }
-    .is-blurred {
-        filter: blur(2px);
-        -webkit-filter: blur(2px);
-    }
 
 </style>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script>
-
-    //DOM ready
-    //https://learn.jquery.com/using-jquery-core/document-ready/
-    $(document).ready(function() {
-        $.getJSON("{% url 'todolist:show_json' %}", function(data) { // https://www.w3schools.com/jquery/ajax_getjson.asp
-            var grid = [];
-            $.each(data, function(index, value) {
-                var cards = [];
-                var content = [];
-                var status = ""
-                if (value.task.is_finished) {
-                    status = "Finished!";
-                } else {
-                    status = "Ongoing";
-                }
-                content.push(`
-                    <div><span class="badge badge-pill badge-success">` + status + `</span></div>
-                    <h4 style = "text-align: center;">` + value.task.date + `</h4>
-                    <div style = "text-align: center;" id="description">
-                        <h1 style = "text-align: center;" >`  + value.task.title + `</h1> <h4 style = text-align:center;>` + value.task.description + `</h4>
+$(document).ready(function() {
+    $.get("/todolist", function(todolist) {
+        console.log(todolist);
+        for (i = 0; i < todolist.length; i++) {
+            $(".tasks").append(`
+            <div class = "card">
+                <div ALIGN = 'center'>
+                    {% for task in tasks%}
+                        {% if task.is_finished %}
+                                <div><span class="badge badge-pill badge-success" id="Finished">Finished!</span></div>
+                                    <h4 style = "text-align: center;"> Created On:` + todolist[i].fields.date + ` </h4>
+                        {% else %}
+                                <div><span class="badge badge-pill badge-success" id="Ongoing">Ongoing</span></div>
+                                    <h4 style = "text-align: center;"> Created On:` + todolist[i].fields.date + `</h4>
+                        {% endif %}
+                        <h1 style = "text-align: center;" >` + todolist[i].fields.title +`</h1> <h4 style = text-align:center;>` + todolist[i].fields.description + `</h4>
+                        <div class="mt-auto align-items-end">
+                            <button><a href="/todolist/update/{{task.id}}", class="custom-update-button"> ✷ Update</a></button>
+                            <button><a href="/todolist/delete/{{task.id}}", class="custom-delete-button"> ✷ Delete</a></button>
+                        </div>
                     </div>
-                    <div class="mt-auto align-items-end">
-                        <button><a href="/todolist/update/` + value.pk + `✷ Update</a></button>
-                        <button onClick = "deleteTask(${value.pk})"> ✷ Delete</a></button>
-                    </div>
-                `);
-                cards.push(`
-                    <div class="card" id = "tasks"` + value.pk + `style="margin-bottom: 20px;">`
-                        + content.join("") +
-                    `</div>
-                `);
-                grid.push(cards.join(""));
-                // https://www.w3schools.com/JSREF/jsref_push.asp
-            });
-
-            $("#todolist-cards").html(grid.join(""));
-        });
-        $("#add-task").click(function () {
-            $("my-modal").attr("style","display:block");
-        });
-        $("#close-modal").click(function() {
-            $("my-modal").attr("style","display:none");
-        });
-        $("#task-form").submit(function(event) {
-            event.preventDefault();
-            $("#add-btn").prop('disabled', true);
-            var $form = $(this);
-            var serializedData = $form.serialize();
-            $ajax({
-                url: "{% url 'todolist:add_task' %}",
-                type: "POST",
-                data: serializedData,
-                dataType: 'json',
-                success: function(data) {
-                    $("#add-btn").prop('disabled', false);
-                    $("#add-btn").text('Submit');
-                    $("#my-modal").attr("style", "display:none");
-                    $.getJSON("{% url 'todolist:show_json' %}", function(data) { // https://www.w3schools.com/jquery/ajax_getjson.asp
-                        var grid = [];
-                        $.each(data, function(index, value) {
-                            var cards = [];
-                            var content = [];
-                            var status = ""
-                            if (value.task.is_finished) {
-                                status = "Finished!";
-                            } else {
-                                status = "Ongoing";
-                            }
-                            content.push(`
-                                <div><span class="badge badge-pill badge-success">` + status + `</span></div>
-                                <h4 style = "text-align: center;">` + value.task.date + `</h4>
-                                <div style = "text-align: center;" id="description">
-                                    <h1 style = "text-align: center;" >`  + value.task.title + `</h1> <h4 style = text-align:center;>` + value.task.description + `</h4>
-                                </div>
-                                <div class="mt-auto align-items-end">
-                                    <button><a href="/todolist/update/` + value.pk + `✷ Update</a></button>
-                                    <button onClick = "deleteTask(${value.pk})"> ✷ Delete</a></button>
-                                </div>
-                            `);
-                            cards.push(`
-                                <div class="card" id = "tasks"` + value.pk + `style="margin-bottom: 20px;">`
-                                    + content.join("") +
-                                `</div>
-                            `);
-                            grid.push(cards.join(""));
-                            // https://www.w3schools.com/JSREF/jsref_push.asp
-                        });
-
-                        $("#todolist-cards").html(grid.join(""));
-                    });
-                }
-            })
-        })
-    })
-
-    function deleteTask(id) {
-        $.ajax({
-            url: '/todolist/delete/' + id,
-            data: {
-                'id':id,
-            },
-            dataType: 'json',
-            success: function (data) { //when the request success
-                if (data.deleted) {
-                    $("#tasks" + id).remove();
-                    alert('Task will be deleted from your data.');
-                }
-            }
-        })
-    }
-
-/* JavaScript Resources:
-Variables: https://www.w3schools.com/js/js_variables.asp
-*/
-</script>
-
-<body>
-    <div ALIGN = 'center'>
-        <div class = "header">
-            <h1 class = "primary-heading">𓆇 {{ username_login }}'s Task Manager 𓆇 </h1>
-            <b> Current User: {{ username_login }} </b>
-        </div>
-        <!-- <button style="margin-top: 16px; text-align: center; margin-bottom: 10px"><a href="{% url 'todolist:create_task' %}"> ✷ Create Task</a></button> -->
-        <button id = "add-task"> ✷ Create Task </button>
-        <button><a href="{% url 'todolist:logout' %}"> ✷ Logout</a></button>
-    </div>
-
-    <div class = "modal" id = "my-modal">
-        <div ALIGN = 'center'>
-            <div class = "modal-content">
-                <button id = "close-modal" class = "close" type = "button">
-                    <span class = "sr-only">Close</span>
-                </button>
-                <form method="POST" id = "task-form">
-                    {% csrf_token %}
-                    <label for = "title">Title</label>
-                    <br>
-                    {{form.title}}
-                    <br>
-                    <label for = "description">Description</label>
-                    {{form.description}}
-                    <br>
-                    <button type = "submit" id = "add-btn">Add Task</button>
-                </form>
-            </div>
-        </div>
-    </div>
-
-</body>
-
-<div id = "todolist-cards" class = "card">
-    <div ALIGN = 'center'>
-        {% for task in tasks%}
-            {% if task.is_finished %}
-                    <div><span class="badge badge-pill badge-success" id="Finished">Finished!</span></div>
-                        <h4 style = "text-align: center;"> Created On: {{task.date}} </h4>
-            {% else %}
-                    <div><span class="badge badge-pill badge-success" id="Ongoing">Ongoing</span></div>
-                        <h4 style = "text-align: center;"> Created On: {{task.date}} </h4>
-            {% endif %}
-                <h1 style = "text-align: center;" >{{ task.title }}</h1> <h4 style = text-align:center;>{{ task.description }}</h4>
-            <div class="mt-auto align-items-end">
-                <button><a href="/todolist/update/{{task.id}}", class="custom-update-button"> ✷ Update</a></button>
-                <button><a href="/todolist/delete/{{task.id}}", class="custom-delete-button"> ✷ Delete</a></button>
-            </div>
-        </div>
-        {% endfor %}
-    </div>
-</div>
-
-<!-- <body>
-    <div ALIGN = 'center'>
-            <div class="wrapper">
-                <div class = "header">
-                    <h1 class = "primary-heading">𓆇 {{ username_login }}'s Task Manager 𓆇 </h1>
-                    <b> Current User: {{ username_login }} </b>
+                    {% endfor %}
                 </div>
-                <button style="margin-top: 16px; text-align: center; margin-bottom: 10px"><a href="{% url 'todolist:create_task' %}"> ✷ Create Task</a></button>
-                <div class="separator" style="color:#201335; margin:10x"></div>
-                    <div class="body">
+            </div>
+            `)
+        }
+    });
+    $("#submit").click(function() {
+        $.post("todolist/add/", {
+            title : $("title").val(),
+            description: $('#description').val(),
+            function (dataResult) {
+                $(".task_list").append(`
+                <div class = "card">
+                    <div ALIGN = 'center'>
                         {% for task in tasks%}
-                        <div class="card" style="margin-bottom: 20px;" >
                             {% if task.is_finished %}
                                     <div><span class="badge badge-pill badge-success" id="Finished">Finished!</span></div>
-                                        <h4 style = "text-align: center;"> Created On: {{task.date}} </h4>
+                                        <h4 style = "text-align: center;"> Created On:` + dataResult.fields.date + ` </h4>
                             {% else %}
                                     <div><span class="badge badge-pill badge-success" id="Ongoing">Ongoing</span></div>
-                                        <h4 style = "text-align: center;"> Created On: {{task.date}} </h4>
+                                        <h4 style = "text-align: center;"> Created On:` + dataResult.fields.date + `</h4>
                             {% endif %}
-                            <div style = "text-align: center;" id="description">
-                                <h1 style = "text-align: center;" >{{ task.title }}</h1> <h4 style = text-align:center;>{{ task.description }}</h4>
-                            </div>
+                            <h1 style = "text-align: center;" >` + dataResult.fields.title +`</h1> <h4 style = text-align:center;>` + dataResult.fields.description + `</h4>
                             <div class="mt-auto align-items-end">
                                 <button><a href="/todolist/update/{{task.id}}", class="custom-update-button"> ✷ Update</a></button>
                                 <button><a href="/todolist/delete/{{task.id}}", class="custom-delete-button"> ✷ Delete</a></button>
                             </div>
                         </div>
                         {% endfor %}
-                <button><a href="{% url 'todolist:logout' %}"> ✷ Logout</a></button>
-            </div>     
+                    </div>
+                </div>
+                `)
+                $('#title').val(''),
+                $('#description').val('')
+            }
+        })
+    });
+
+    function deleteTask(id) {
+            $.ajax({
+                url: '/todolist/delete/' + id,
+                data: {
+                    'id':id,
+                },
+                dataType: 'json',
+                success: function (data) { //when the request success
+                    if (data.deleted) {
+                        $("#tasks" + id).remove();
+                        alert('Task will be deleted from your data.');
+                    }
+                }
+            });
+     }
+});
+</script>
+
+<body>
+    <div ALIGN = 'center'>
+        <div class = "header">
+            <h1 class = "primary-heading"> 𓆇 {{ username_login }}'s Task Manager 𓆇</h1>
+            <b> Current User: {{ username_login }}</b>
+
+            <div class = "tasks"></div>
+            <p></p>
+
+            <button type="button"  data-bs-toggle="modal" data-bs-target="#my-modal"> ✷ Add Task</button>
+
+            <div class = "modal" id = "my-modal">
+                <div class = "modal-content">
+                    <h1>Add Your Task!</h1>
+                    <button type = "button" class = "btn-close" data-bs-dismiss = "modal" aria-label="Close"></button>
+                    <form method = "POST" action = "">
+                        {% csrf_token %}
+                        <table>
+                            <tr>
+                                <td> Title: </td>
+                                <td><input type = "text" name = "title" placeholder="Title" class = "form-control" id = "title"></td>
+                            </tr>
+                            <tr>
+                                <td> Description: </td>
+                                <td><input type = "text" name = "description" placeholder = "Description" class = "form-control" id = "description"></td>
+                            </tr>
+                        </table>
+                    </form>
+                    <button type = "button" data-bs-dismiss="modal">Close</button>
+                    <button type = "button" id = "submit" data-bs-dismiss="modal">Add Task</button>
+                </div>
+            </div>
+
+            <button><a href="{% url 'todolist:logout' %}" > ✷ Logout</a></button> 
+        </div>
     </div>
-</body> -->
+
+
+</body>
 
 
 {% endblock content %}
-

@@ -13,5 +13,6 @@ urlpatterns = [
     path('delete/<id>', delete_task, name='delete_task'),
     path('update/<id>', update_task, name='update_task'),
     path('json/', show_json, name='show_json'),
-    path('add/', add_task_ajax, name='add_task')
+    path('add/', add_task_modal, name='add_task_modal'),
+    path('json_ajax/', show_todo_json, name='show_todo_json'),
 ]

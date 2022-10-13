@@ -11,10 +11,11 @@ from django.contrib.auth.decorators import login_required
 import datetime
 from django.http import HttpResponseRedirect, JsonResponse, HttpResponse
 from django.urls import reverse
-from todolist.models import Task
-from todolist.forms import TaskForm
+from todolist.models import *
+from todolist.forms import *
 from django.urls import reverse
 from django.core import serializers
+from django.views.decorators.csrf import csrf_exempt
 
 # Create your views here.
 
@@ -94,12 +95,33 @@ def update_task(request, id):
 def show_json(request):
     tasks = Task.objects.filter(user=request.user)
     return HttpResponse(serializers.serialize("json", tasks), content_type="application/json")
-
+    
 @login_required(login_url='/todolist/login')
-def add_task_ajax(request):
-    if request.method == 'POST':
-        title = request.POST['title']
-        description = request.POST['description']
-        Task.objects.create(user=request.user, title=title, description=description)
-        return JsonResponse({'error': False, 'msg': 'Successful'})
-    return redirect('todolist:show_todolist')
+def show_todo_json(request):
+    tasks = Task.objects.filter(user=request.user)
+    context = {
+        'tasks' : tasks,
+        'username': request.user,
+    }
+    return render(request, "todolist.html", context)
+
+# https://stackoverflow.com/questions/51710145/what-is-csrf-exempt-in-django/51710363#51710363
+@csrf_exempt
+def add_task_modal(request):
+    if request.method == "POST":
+        title = request.POST.get("title")
+        description = request.POST.get("description")
+        date = datetime.date.today()
+        task = Task.objects.create(user=request.user, title=title, description=description, date = date)
+
+        data = {
+            'fields': {
+                'title': task.title,
+                'description': task.description,
+                'date': task.date,
+            },
+            'pk': task.pk
+        }
+
+        print(data)
+        return JsonResponse(data)
